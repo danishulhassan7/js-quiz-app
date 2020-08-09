@@ -147,3 +147,20 @@
         background-color: rgb(14, 2, 56);
         color: whitesmoke;
     }
+    /* end.html  */
+    
+    .bg-end {
+        background-color: rgb(8, 85, 40) !important;
+    }
+    
+    .award-icon {
+        font-size: 376px;
+        color: white;
+        margin-bottom: 15px;
+    }
+    
+    .user {
+        font-size: 130%;
+        text-align: center;
+        color: white;
+    }

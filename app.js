@@ -70,18 +70,29 @@ function submitForm(e) {
     location.href = "quiz.html";
 }
 
-let question_count = 0;
-let points = 0;
+var question_count = 0;
+var points = 0;
 
 // function for next question 
 
 function nextQuestion() {
     let user_answer = document.querySelector("li.option.active").innerHTML;
-    // checking the user answer 
+    // check if the answer is right or wrong
     if (user_answer == questions[question_count].answer) {
-        quiz_points += 10;
-        sessionStorage.setItem("points", quiz_points);
+        points += 10;
+        sessionStorage.setItem("points", points);
     }
+    // if the question is last then redirect to final page
+    if (question_count == questions.length - 1) {
+        sessionStorage.setItem("time", `${minutes} minutes and ${seconds} seconds`);
+        clearInterval(mytime);
+        location.href = "end.html";
+    }
+    console.log(question_count);
+
+
+    console.log(points);
+
     question_count++;
     showQuestions(question_count);
 }
@@ -91,7 +102,7 @@ function nextQuestion() {
 function showQuestions(count) {
     let question = document.getElementById("questions");
     // question.innerHTML = "<h2>" + questions[count].question + "</h2>";
-    question.innerHTML = `<h2> ${questions[count].question} </h2>
+    question.innerHTML = `<h2> Q${question_count+1}.${questions[count].question} </h2>
     <ul class="option-group">
     <li class="option"> ${questions[count].options[0]} </li>
     <li class="option"> ${questions[count].options[1]} </li>
@@ -106,15 +117,14 @@ function showQuestions(count) {
 
 function toggleActive() {
     let option = document.querySelectorAll("li.option");
-
     for (let i = 0; i < option.length; i++) {
         option[i].onclick = function() {
-            for (let j = 0; j < option.length; j++) {
-                if (option[j].classList.contains("active")) {
-                    option[j].classList.remove("active");
+            for (let i = 0; i < option.length; i++) {
+                if (option[i].classList.contains("active")) {
+                    option[i].classList.remove("active");
                 }
             }
             option[i].classList.add("active");
-        }
+        };
     }
 }
